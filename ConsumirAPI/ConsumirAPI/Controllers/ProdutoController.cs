@@ -19,5 +19,27 @@ namespace ConsumirAPI.Controllers
             var produtos = await _apiService.GetAllProdutosAsync();
             return View(produtos);
         }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Create(Produto produto)
+        {
+            _apiService.PostProdutoAsync(produto);
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
     }
 }
