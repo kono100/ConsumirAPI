@@ -34,7 +34,7 @@ namespace ConsumirAPI.Controllers
         public async Task<IActionResult> Create(Produto produto)
         {
             _apiService.PostProdutoAsync(produto);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
 
