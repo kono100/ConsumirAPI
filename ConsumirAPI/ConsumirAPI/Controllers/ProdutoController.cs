@@ -28,11 +28,19 @@ namespace ConsumirAPI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create(Produto produto)
         {
-            _apiService.PostProdutoAsync(produto);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                var response = await _apiService.PostProdutoAsync(produto);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError(string.Empty, "Erro ao criar o produto.");
+            }
+            return View(produto);
         }
+
     }
 }

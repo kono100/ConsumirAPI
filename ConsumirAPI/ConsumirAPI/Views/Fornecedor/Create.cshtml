@@ -14,12 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
@@ -32,10 +26,11 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Produtos" class="control-label"></label>
-                <input asp-for="Produtos" class="form-control" />
+                <label for="Produtos" class="control-label">Produtos</label>
+                <select asp-for="Produtos" asp-items="@(new SelectList(ViewBag.Produtos, "Id", "Nome_Produto"))" multiple class="form-control"></select>
                 <span asp-validation-for="Produtos" class="text-danger"></span>
             </div>
+
 
             <div class="form-group">
                 <input type="submit" value="Inserir" class="btn btn-primary btn-sm" />

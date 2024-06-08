@@ -20,11 +20,16 @@ namespace ConsumirAPI.Controllers
             return View(fornecedores);
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var produtos = await _apiService.GetAllProdutosAsync();
+            ViewBag.Produtos = produtos;
             return View();
         }
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,6 +46,7 @@ namespace ConsumirAPI.Controllers
             }
             return View(fornecedor);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
