@@ -1,7 +1,9 @@
 ﻿using ConsumirAPI.Service;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI_Swagger.Model;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ConsumirAPI.Controllers
 {
@@ -17,6 +19,15 @@ namespace ConsumirAPI.Controllers
         public async Task<IActionResult> Index()
         {
             var fornecedores = await _apiService.GetAllFornecedoresAsync();
+            var produtos = await _apiService.GetAllProdutosAsync();
+
+            // Preenche o Nome_Produto de cada fornecedor
+            foreach (var fornecedor in fornecedores)
+            {
+                var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
+                fornecedor.Nome_Produto = produto?.Nome_Produto;
+            }
+
             return View(fornecedores);
         }
 
@@ -26,10 +37,6 @@ namespace ConsumirAPI.Controllers
             ViewBag.Produtos = produtos;
             return View();
         }
-
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -46,7 +53,6 @@ namespace ConsumirAPI.Controllers
             }
             return View(fornecedor);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -67,6 +73,8 @@ namespace ConsumirAPI.Controllers
             {
                 return NotFound();
             }
+            var produtos = await _apiService.GetAllProdutosAsync();
+            ViewBag.Produtos = produtos;
             return View(fornecedor);
         }
 
@@ -88,6 +96,8 @@ namespace ConsumirAPI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            var produtos = await _apiService.GetAllProdutosAsync();
+            ViewBag.Produtos = produtos;
             return View(fornecedor);
         }
 
@@ -102,20 +112,16 @@ namespace ConsumirAPI.Controllers
             return View(fornecedor);
         }
 
-
-            [HttpPost, ActionName("Delete")]
-            [ValidateAntiForgeryToken]
-            public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var response = await _apiService.DeleteFornecedorAsync(id);
+            if (!response.IsSuccessStatusCode)
             {
-                var response = await _apiService.DeleteFornecedorAsync(id);
-                if (!response.IsSuccessStatusCode)
-                {
-                    return NotFound();
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
+            return RedirectToAction(nameof(Index));
         }
-
-
     }
-
+}

@@ -17,7 +17,7 @@
             <th>Nome</th>
             <th>Contato</th>
             <th>ID_Produto</th>
-            <th>Nome_Produto1</th>
+            <th>Nome_Produto</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -29,7 +29,7 @@
                 <td>@fornecedor.Nome</td>
                 <td>@fornecedor.Contato</td>
                 <td>@fornecedor.ID_Produto</td>
-                <td>@fornecedor.Nome_Produto1</td>
+                <td>@fornecedor.Nome_Produto</td>
                 <td>
                     <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@fornecedor.Id">Editar</a>
                     <a class="btn btn-outline-info btn-sm" asp-action="Details" asp-route-id="@fornecedor.Id">Detalhes</a>
@@ -39,4 +39,3 @@
         }
     </tbody>
 </table>
-
