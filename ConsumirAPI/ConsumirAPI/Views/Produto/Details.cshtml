@@ -1,0 +1,44 @@
+﻿@model WebAPI_Swagger.Model.Produto
+
+@{
+    ViewData["Title"] = "Detalhes do Produto";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome_Produto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome_Produto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estoque)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estoque)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary btn-sm text-white">Voltar</a>
+</div>
