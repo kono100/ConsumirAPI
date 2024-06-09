@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI_Swagger.Model;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace ConsumirAPI.Controllers
 {
@@ -21,7 +20,6 @@ namespace ConsumirAPI.Controllers
             var fornecedores = await _apiService.GetAllFornecedoresAsync();
             var produtos = await _apiService.GetAllProdutosAsync();
 
-            // Preenche o Nome_Produto de cada fornecedor
             foreach (var fornecedor in fornecedores)
             {
                 var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
@@ -51,6 +49,8 @@ namespace ConsumirAPI.Controllers
                 }
                 ModelState.AddModelError(string.Empty, "Erro ao criar o fornecedor.");
             }
+            var produtos = await _apiService.GetAllProdutosAsync();
+            ViewBag.Produtos = produtos;
             return View(fornecedor);
         }
 
@@ -62,6 +62,9 @@ namespace ConsumirAPI.Controllers
             {
                 return NotFound();
             }
+            var produtos = await _apiService.GetAllProdutosAsync();
+            var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
+            fornecedor.Nome_Produto = produto?.Nome_Produto;
             return View(fornecedor);
         }
 
@@ -75,6 +78,8 @@ namespace ConsumirAPI.Controllers
             }
             var produtos = await _apiService.GetAllProdutosAsync();
             ViewBag.Produtos = produtos;
+            var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
+            fornecedor.Nome_Produto = produto?.Nome_Produto;
             return View(fornecedor);
         }
 
@@ -98,6 +103,8 @@ namespace ConsumirAPI.Controllers
             }
             var produtos = await _apiService.GetAllProdutosAsync();
             ViewBag.Produtos = produtos;
+            var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
+            fornecedor.Nome_Produto = produto?.Nome_Produto;
             return View(fornecedor);
         }
 
@@ -109,6 +116,9 @@ namespace ConsumirAPI.Controllers
             {
                 return NotFound();
             }
+            var produtos = await _apiService.GetAllProdutosAsync();
+            var produto = produtos.FirstOrDefault(p => p.Id == fornecedor.ID_Produto);
+            fornecedor.Nome_Produto = produto?.Nome_Produto;
             return View(fornecedor);
         }
 
